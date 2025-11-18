@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+      <link rel="stylesheet" href="PlateauStyle.css">
+    <meta charset="UTF-8">
+    <title>Plateau de jeu - Solitaire</title>
+</head>
+<body>
+    <div id="paquet"></div>
+    <!-- Plateau de jeu Solitaire -->
+    <div class="plateau-container">
+        <h1>Plateau de jeu Solitaire</h1>
+        <!-- Barre du haut avec uniquement le bouton Paramètres -->
+        <div class="top-bar">
+            <!-- Bouton Paramètres, déclenche le menu -->
+            <button class="btn-top" id="settings">Paramètres</button>
+        </div>
+        <!--conteneur cartes-->
+        <div id="container-cartes"></div>
+        <!-- Menu des paramètres, caché au départ -->
+        <div id="settings-menu" class="settings-menu" style="display:none;">
+            <!-- Option Nouvelle Partie -->
+            <button class="settings-option" id="menu-new-game">Nouvelle partie</button>
+            <!-- Option Autre Thème -->
+            <button class="settings-option" id="menu-theme">Autre thème</button>
+            <!-- Option Song -->
+            <button class="settings-option" id="menu-song">Song</button>
+            <!-- Option Instructions -->
+            <button class="settings-option" id="menu-instructions">Instructions</button>
+        </div>
+        <!-- Affichage du score et du temps -->
+        <div class="game-stats">
+            <span id="score">Score : 0</span>
+            <span id="timer">Temps : 00:00</span>
+        </div>
+        <!-- Zone d'affichage des colonnes de cartes -->
+        <div id="solitaire-board" class="solitaire-board"></div>
+        <!-- Ici tu ajoutes les éléments du jeu (cartes, zones, etc.) -->
+    </div>
+    <!-- Ajout du lecteur audio caché pour la musique de fond -->
+    <audio id="background-music" style="display:none;" loop></audio>
+    <script>
+    // Liste des fichiers audio du dossier Sons
+    const musicFiles = [
+        'Sons/1_16 - R.I.Peace - Tiakola (320).mp3',
+        'Sons/Aya Nakamura - Bisous.mp3',
+        'Sons/Aya Nakamura - Chérie.mp3',
+        'Sons/Franglish_ft_Keblackofficiel_Génération_Impolie_Lyrics_VideoM4A.m4a',
+        'Sons/GIMS - PARISIENNE.mp3',
+        'Sons/Guy2Bezbar - 10 sur 10 (feat. Aya Nakamura).mp3',
+        'Sons/Guy2Bezbar - Big mama.mp3'
+    ];
+
+    // Fonction pour lancer une musique aléatoire
+    function playRandomMusic() {
+        // Sélectionne un fichier au hasard
+        const randomIndex = Math.floor(Math.random() * musicFiles.length);
+        const audio = document.getElementById('background-music');
+        audio.src = musicFiles[randomIndex]; // Définit la source
+        audio.volume = 0.5; // Volume par défaut
+        audio.play(); // Lance la musique
+    }
+
+    // Gestion du score et du temps pour le Solitaire
+    let score = 0; // Variable pour le score
+    let seconds = 0; // Variable pour le temps en secondes
+    let timerInterval; // Variable pour l'intervalle du timer
+
+    function startTimer() {
+        // Lance le timer et met à jour l'affichage chaque seconde
+        timerInterval = setInterval(() => {
+            seconds++;
+            document.getElementById('timer').textContent = 'Temps : ' + formatTime(seconds);
+        }, 1000);
+    }
+
+    function formatTime(sec) {
+        // Formate le temps en mm:ss
+        const min = Math.floor(sec / 60);
+        const s = sec % 60;
+        return (min < 10 ? '0' : '') + min + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function updateScore(points) {
+        // Ajoute les points au score et met à jour l'affichage
+        score += points;
+        document.getElementById('score').textContent = 'Score : ' + score;
+    }
+
+    // Démarre le timer dès l'ouverture du plateau
+    window.addEventListener('DOMContentLoaded', startTimer);
+    // Démarre la musique aléatoire au chargement de la partie
+    window.addEventListener('DOMContentLoaded', playRandomMusic);
+    // Pour utiliser updateScore(x), appelle cette fonction dans ton code de jeu
+
+    // Bouton Paramètres : affiche ou masque le menu
+    document.getElementById('settings').onclick = function() {
+        // Affiche ou cache le menu des paramètres
+        const menu = document.getElementById('settings-menu');
+        menu.style.display = (menu.style.display === 'none') ? 'flex' : 'none';
+    };
+    // Option Nouvelle Partie : recharge la page
+    document.getElementById('menu-new-game').onclick = function() {
+        // Recharge la page pour recommencer une partie
+        window.location.reload();
+    };
+    // Option Autre Thème : affiche une alerte (à personnaliser)
+    document.getElementById('menu-theme').onclick = function() {
+        // Affiche une fenêtre d'information
+        alert('Changement de thème à venir !');
+    };
+    // Option Song : affiche les contrôles de volume
+    document.getElementById('menu-song').onclick = function() {
+        // Vérifie si le menu volume existe déjà
+        let volumeMenu = document.getElementById('volume-menu');
+        if (!volumeMenu) {
+            // Crée le menu volume si absent
+            volumeMenu = document.createElement('div');
+            volumeMenu.id = 'volume-menu';
+            volumeMenu.style.display = 'flex';
+            volumeMenu.style.flexDirection = 'row';
+            volumeMenu.style.gap = '10px';
+            volumeMenu.style.marginTop = '10px';
+            // Bouton pour diminuer le volume
+            const btnMinus = document.createElement('button');
+            btnMinus.textContent = '-';
+            btnMinus.className = 'settings-option';
+            btnMinus.onclick = function() {
+                // Diminue le volume de la musique
+                changeMusicVolume(-0.1);
+            };
+            // Bouton pour augmenter le volume
+            const btnPlus = document.createElement('button');
+            btnPlus.textContent = '+';
+            btnPlus.className = 'settings-option';
+            btnPlus.onclick = function() {
+                // Augmente le volume de la musique
+                changeMusicVolume(0.1);
+            };
+            // Ajoute les boutons au menu
+            volumeMenu.appendChild(btnMinus);
+            volumeMenu.appendChild(btnPlus);
+            // Ajoute le menu volume sous le bouton Song
+            document.getElementById('menu-song').after(volumeMenu);
+        } else {
+            // Si déjà affiché, le retire
+            volumeMenu.remove();
+        }
+    };
+    // Fonction pour changer le volume de la musique
+    function changeMusicVolume(delta) {
+        // Cherche l'élément audio (à adapter selon ton code)
+        let audio = document.getElementById('background-music');
+        if (audio) {
+            // Modifie le volume (entre 0 et 1)
+            audio.volume = Math.max(0, Math.min(1, audio.volume + delta));
+        } else {
+            // Si aucun audio, affiche une alerte
+            alert('Aucune musique de fond détectée !');
+        }
+    }
+    // Option Sons : affiche une alerte (à personnaliser)
+    document.getElementById('menu-sons').onclick = function() {
+        // Affiche une fenêtre d'information
+        alert('Gestion de la musique à venir !');
+    };
+    // Option Instructions : affiche une alerte (à personnaliser)
+    document.getElementById('menu-instructions').onclick = function() {
+        // Affiche une fenêtre d'information
+        alert('Instructions du jeu à venir !');
+    };
+    // Fonction pour afficher les cartes sur le plateau
+    function renderBoard() {
+        const board = document.getElementById('solitaire-board'); // Récupère la zone d'affichage
+        board.innerHTML = ''; // Vide le plateau
+        // Parcourt chaque colonne
+        columns.forEach((col, colIndex) => {
+            // Crée un conteneur pour la colonne
+            const colDiv = document.createElement('div');
+            colDiv.className = 'solitaire-column';
+            // Pour chaque carte de la colonne
+            col.forEach((card, cardIndex) => {
+                // Crée un élément pour la carte
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'solitaire-card';
+                // Affiche la valeur et la couleur
+                cardDiv.textContent = card.value + ' ' + card.suit;
+                // Ajoute la carte au conteneur de colonne
+                colDiv.appendChild(cardDiv);
+            });
+            // Ajoute la colonne au plateau
+            board.appendChild(colDiv);
+        });
+    }
+    </script>
+    <!-- contener global du jeu -->
+     <div id="solitaire"></div>
+    <!-- Pile de la pioche -->
+     <div class="top-row">
+        <div class="draw-pile">
+           <div id="stock" class="pile"></div>
+           <div id="waste" class="pile"></div>
+           <!-- petit espace pour séparer pioche + défausse des fondations-->
+            <div class="empty-space"></div>
+            <!-- défause (carte retournées depuis la pioche)-->
+             <div id="waste" class="pile"></div>
+             <!-- stock= pioche-->
+            <div id="stock" class="pile"></div>
+            <!-- zone du haut-->
+             <div class="top-area"></div>
+           <!-- Fondation (4 piles pour As -> Roi)-->
+            <div class="foundations">
+                <div id="foundations-0" class="pile foundation"></div>
+                <div id="foundations-1" class="pile foundation"></div>
+                <div id="foundations-2" class="pile foundation"></div>
+                <div id="foundations-3" class="pile foundation"></div>
+            </div>
+        </div>
+        <!-- 7 colonnes principales -->
+         <div class="tableau">
+            <div id="tableau-0" class="=pile tableau"></div>
+            <div id="tableau-1" class="pile tableau"></div>
+            <div id="tableau-2" class="pile tableau"></div>
+            <div id="tableau-3" class="pile tableau"></div>
+            <div id="tableau-4" class="pile tableau"></div>
+            <div id="tableau-5" class="pile tableau"></div>
+            <div id="tableau-6" class="pile tableau"></div>
+        </div>
+            
+         </div>
+         <!-- la pioche-->
+          <div id="stock" class="pile"></div>
+          <div id="waste" class="pile"></div>
+    <script src="Dynamic.js"></script>
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        renderBoard(); // Affiche le plateau après que Jeu.js ait chargé les colonnes
+    });
+    </script>
+    <div id= "paquet"></div> <!-- Conteneur pour le paquet de cartes -->
+     <footer>
+        &copy; 2025 Bnel Solitaire
+    </footer>
+</body>
+</html>

@@ -1,0 +1,116 @@
+/* Fond vert tapis d'herbe pour le plateau de jeu */
+body {
+    background: linear-gradient(135deg, #388e3c 60%, #2e7d32 100%);
+    /* Motif herbeux simple */
+    background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 20px),
+                      repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 15px);
+    min-height: 100vh;
+    margin: 0;
+     background: rgba(12, 107, 28, 0.904);
+}
+
+/* Ajoute ici le style de ton plateau de jeu */
+
+.game-stats {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    display: flex;
+    gap: 30px;
+    font-size: 1.3em;
+    background: rgba(12, 75, 12, 0.5); /* fond plus visible */
+    padding: 10px 24px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+    z-index: 10;
+}
+.game-stats span {
+    font-weight: bold;
+}
+/* Barre du haut contenant les boutons et les stats */
+.top-bar {
+    position: absolute; /* Positionne la barre en haut à gauche */
+    top: 20px; /* Distance du haut de la page */
+    left: 40px; /* Distance du bord gauche */
+    display: flex; /* Affiche les éléments sur la même ligne */
+    gap: 20px; /* Espace entre les boutons */
+    z-index: 11; /* Au-dessus du plateau */
+}
+/* Style des boutons de la barre du haut */
+.btn-top {
+    background: #145c18; /* Couleur verte foncée */
+    color: #fff; /* Texte blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 8px; /* Bords arrondis */
+    padding: 10px 22px; /* Espacement interne */
+    font-size: 1em; /* Taille du texte */
+    font-weight: bold; /* Texte en gras */
+    cursor: pointer; /* Curseur pointeur */
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08); /* Ombre légère */
+    transition: background 0.2s, color 0.2s; /* Animation au survol */
+}
+.btn-top:hover {
+    background: #1de042; /* Vert clair au survol */
+    color: #145c18; /* Texte vert foncé au survol */
+}
+
+/* Menu des paramètres (affiché au clic sur Paramètres) */
+.settings-menu {
+    position: absolute; /* Positionne le menu en haut à gauche */
+    top: 60px; /* Sous le bouton Paramètres */
+    left: 40px; /* Aligné avec la barre du haut */
+    display: flex; /* Affiche les options sur une colonne */
+    flex-direction: column; /* Colonne verticale */
+    gap: 12px; /* Espace entre les options */
+    background: rgba(12, 75, 12, 0.95); /* Fond vert opaque */
+    border-radius: 12px; /* Bords arrondis */
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,0.15); /* Ombre */
+    padding: 18px 24px; /* Espacement interne */
+    z-index: 100; /* Au-dessus du reste */
+}
+/* Style des boutons du menu paramètres */
+.settings-option {
+    background: #fff; /* Fond blanc */
+    color: #145c18; /* Texte vert foncé */
+    border: none; /* Pas de bordure */
+    border-radius: 8px; /* Bords arrondis */
+    padding: 10px 22px; /* Espacement interne */
+    font-size: 1em; /* Taille du texte */
+    font-weight: bold; /* Texte en gras */
+    cursor: pointer; /* Curseur pointeur */
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08); /* Ombre légère */
+    transition: background 0.2s, color 0.2s; /* Animation au survol */
+}
+.settings-option:hover {
+    background: #1de042; /* Vert clair au survol */
+    color: #fff; /* Texte blanc au survol */
+}
+
+/* Plateau de jeu visuel */
+.solitaire-board {
+    display: flex; /* Affiche les colonnes côte à côte */
+    gap: 18px; /* Espace entre les colonnes */
+    justify-content: center; /* Centre le plateau */
+    margin-top: 60px; /* Espace sous la barre du haut */
+}
+/* Colonne de cartes */
+.solitaire-column {
+    display: flex; /* Affiche les cartes en colonne */
+    flex-direction: column; /* Vertical */
+    gap: 6px; /* Espace entre les cartes */
+    min-width: 60px; /* Largeur minimale */
+}
+/* Carte visuelle */
+.solitaire-card {
+    background: #fff; /* Fond blanc */
+    color: #145c18; /* Texte vert foncé */
+    border: 1px solid #145c18; /* Bordure verte */
+    border-radius: 8px; /* Bords arrondis */
+    padding: 8px 0; /* Espacement interne */
+    text-align: center; /* Centre le texte */
+    font-weight: bold; /* Texte en gras */
+    font-size: 1.1em; /* Taille du texte */
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08); /* Ombre légère */
+    width: 60px; /* Largeur fixe */
+}

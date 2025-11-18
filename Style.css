@@ -1,0 +1,160 @@
+/* Global : police, centrage et fond */
+* { box-sizing: border-box; } /* Simplifie le calcul des tailles */
+:root {
+    --primary-font: sans-serif;
+   html, body {
+  .card-container{
+    position: relative;
+    height: 100%;
+    width:calc(var(--card-width-lg) * (var(--num-cards) / 2) + var(--card-horizontal-space-lg));
+    display: grid;
+}
+
+.card{
+    position:absolute;
+    height:var(--card-height-lg);
+    width:var(--card-width-lg);
+    perspective: 100px;
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out
+;}
+.card-inner{
+    position: relative;
+    width:100%;
+    height:100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+.card-img{
+    height:100%;
+}
+.card-inner.flip-it{
+    transform: rotateY(180deg);
+}
+header{
+    display: flex;
+    flex-direction: column;
+    margin-bottom:100px;
+}
+.header-title-container{
+    display: flex;
+    justify-content: center;
+}
+.current-status{
+    font-size:1.5rem;
+    text-align: center;
+}
+
+.header-img{
+    display: flex;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid #ffffff, #ffffff;
+    padding: 1px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transform: rotate(-3deg);
+}
+.header-img-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    align-items: center;
+}
+    height: 0%;
+            font-family: Arial, sans-serif;
+             background: linear-gradient(180deg, #1a2a6c, #b21f1f); /* Dégradé d'arrière-plan */
+            margin: 0; /* Supprimer la marge du navigateur*/
+            padding: 0; /* Centre horizontalement et ajoute une marge verticale*/
+            display: flex; /* Met les lements sur la ligne*/
+            color: #1A1A1A;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            margin-top: 60px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.2em;
+        }
+        /* Bouton "commencer une partie" */
+        .btn {
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background 0.2s, color 0.5s;
+            opacity: 0;line-height: normal;
+            min-height: 60px;
+            min-width: 0;
+            outline: none;
+            padding: 16px 24px;
+            text-align: center;
+            will-change: transform;
+            pointer-events: none;
+            animation: fadeInBtn 1s ease forwards;
+            animation-delay: 2s; /* délai avant apparition */
+        }
+        .btn:hover {
+            background: #e0ffe0;
+            color: #000000;
+        }
+        .btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #000000;
+        }
+        #playGame {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: none;
+  font-family: var(--primary-font);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  will-change: transform;
+  animation: game-play-button-fade-in 5s 1;
+}
+
+/* Animation pour le bouton */
+@keyframes fadeInBtn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  will-change: transform;
+ }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="Style.css">
+    <meta charset="UTF-8">
+    <title>Solitaire - Page d'accueil</title>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue au Solitaire</h1>
+       <h2><p>Jouer au célèbre jeu de cartes et amusez vous !</p></h2> 
+         <div class="header-status-info-container">
+           <h2>
+            <p class="current-status">
+                Clicker sur 'Commencer une partie' pour débuter le Jeu
+            </p>
+           </h2>
+            
+        </div>
+         <div class="header-button-container">
+            <div class="game-play-button-container">
+                <button class="btn" onclick="window.location.href='jeu.html'">Commencer une partie</button>
+            </div>
+        </div>
+        <p>
+        <div class="header-img-container">
+             <img src="images/card-KingHearts.png" alt="class="header-img">
+             <img src="images/card-QueenDiamonds.png" alt="class=header-img">
+             <img src="images/card-JackClubs.png" alt="class=header-img">
+        </p>    
+            </header>
+    <footer>
+        &copy; 2025 Bnel Solitaire
+    </footer>
+    
+    <script>
+      // Affiche le bouton après 2 secondes
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          document.querySelector('.btn').classList.add('visible');
+        }, 2000);
+      });
+    </script>
+    <script>
+      // Affiche le bouton après 2 secondes avec une animation progressive
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          document.querySelector('.btn').classList.add('visible');
+        }, 2000); // 2 secondes
+      });
+    </script>
+    <
+     
+</body>
+</html>
